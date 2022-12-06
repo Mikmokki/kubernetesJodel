@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ui-app
+  template:
+    metadata:
+      labels:
+        app: ui-app
+    spec:
+      containers:
+        - name: ui-app
+          image: ui:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7778
+          env:
+            - name: PGPASS
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-app
+                  key: pgpass
+                  optional: false # stating that the secret "cluster-app" must exist

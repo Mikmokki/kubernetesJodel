@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Message from '../../components/Message.vue';
+const { id } = Astro.params;
+---
+
+<Layout title="Jodel">
+	<main>
+	<Message client:only messageid={Number(id)}>
+	</Message>
+</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 60ch;
+	}
+
+
+</style>
