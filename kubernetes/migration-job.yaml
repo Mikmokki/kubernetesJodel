@@ -8,8 +8,8 @@ spec:
       name: migration
     spec:
       containers:
-        - name: my-flyway-migrations
-          image: my-flyway-migrations:latest
+        - name: flyway
+          image: flyway:latest
           imagePullPolicy: Never
           env:
             - name: FLYWAY_USER
