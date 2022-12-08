@@ -17,7 +17,7 @@ spec:
           image: ui:latest
           imagePullPolicy: Never
           ports:
-            - containerPort: 7778
+              - containerPort: 80
           env:
             - name: PGPASS
               valueFrom:

@@ -5,8 +5,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 7778
-    targetPort: 7778
+  - port: 80
+    targetPort: 80
     protocol: TCP
   selector:
     app: ui-app

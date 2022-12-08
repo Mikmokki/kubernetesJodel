@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^3.1.0",
     "@astrojs/vue": "^1.2.1",
     "amqplib": "^0.10.3",
     "amqplib-as-promised": "^4.1.0",
