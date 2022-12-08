@@ -10,20 +10,28 @@
 			{{message.token}}
 		</p>
 		<p>
-			{{message.messagetext}} {{message.score}}
+			{{message.messagetext}} 
 		</p>
 	</a>
+	<div><p>{{message.score}}</p><button @click="handleVote(true)">up</button><button  @click="handleVote(false)">down</button></div>
 </li>
 </template>
-<script setup lang="ts">
-defineProps<{message:{
-id: number,
-messagetext: string,
-timestamp: string,
-score: number,
-token: string,
-}}>()
 
+<script setup lang="ts">
+import type { Message } from './MessageList.vue';
+
+const props =  defineProps<{message:Message}>()
+
+const handleVote=async(up:boolean)=>{
+		const vote = JSON.stringify({up})
+ 		await fetch(`/api/messages/${props.message.id}/vote`, {
+  		method: 'POST', 
+  		headers: {
+    	'Content-Type': 'application/json',
+  		},
+  		body: vote,
+		})
+	}
 </script>
 <style>
 	.link-card {

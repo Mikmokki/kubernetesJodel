@@ -9,10 +9,10 @@ const getMessages = async (offset=0) => {
 };
 const createMessage = async (messagetext, token) => {
   const res = await executeQuery(
-    "INSERT INTO message (messagetext,token) VALUES ($messagetext, $token);",
+    "INSERT INTO message (messagetext,token) VALUES ($messagetext, $token) RETURNING *;",
     { messagetext, token },
   );
-  return res.rows;
+  return res.rows?.[0];
 };
 const getMessage = async (id) => {
   const res = await executeQuery(
@@ -27,11 +27,18 @@ const getReplies = async (messageid) => {
   return res.rows;
 };
 const createReply = async (messageid,replytext, token) => {
-  console.log(messageid,replytext, token)
   const res = await executeQuery(
-    "INSERT INTO reply (messageid,replytext,token) VALUES ($messageid, $replytext, $token);",
+    "INSERT INTO reply (messageid,replytext,token) VALUES ($messageid, $replytext, $token) RETURNING *;",
     { messageid,replytext, token },
   );
-  return res.rows;
+  return res.rows?.[0];
 };
-export { createMessage, getMessages,getMessage,getReplies,createReply };
+
+const updateMessage = async (messageid,up) => {
+  const res = await executeQuery(
+    "UPDATE message SET score= score + $up WHERE id=$messageid RETURNING *;",
+    { messageid,up: up ? 1: -1 },
+  );
+  return res.rows?.[0];
+};
+export { createMessage, getMessages,getMessage,getReplies,createReply,updateMessage };

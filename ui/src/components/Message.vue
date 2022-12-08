@@ -20,7 +20,7 @@
 	</form>
 	<ul role="list" class="link-card-grid">
 		<Reply v-for="reply in replies"
-			:key="message.id"
+			:key="reply.id"
 			:reply="reply"
 		/>
 	</ul>
@@ -29,10 +29,19 @@
 	</template>
 	<script setup lang="ts">
 	import { ref,onMounted } from 'vue';
+import type { Message } from './MessageList.vue';
 	import Reply from './Reply.vue';
+	export interface Reply {
+		id: number,
+		messageid: number,
+		replytext: string,
+		timestamp: string,
+		token: string
+	}
     const props = defineProps<{messageid: number}>()
 	const message=ref<Message>()
-    const replies=ref<Message>([])
+
+    const replies=ref<Reply[]>([])
 	const fetchReplies = async ()=>{
 		const res = await fetch(`/api/messages/${props.messageid}/replies`)
 		replies.value = await res.json() 
@@ -55,8 +64,21 @@
   		body: reply,
 	})
 	replyText.value=""
-	fetchReplies()
 	}
+
+	var url = new URL(`/api/socket/${message.value?.id}`, window.location.href);
+	url.protocol = url.protocol.replace('http', 'ws');
+	url.href // => ws://www.example.com:9999/path/to/websocket
+	const ws = new WebSocket(url);
+	ws.onopen = () => console.log(`Connected to server`);
+	ws.onmessage = async (m) => {
+  	const reply =  JSON.parse(m.data)
+	console.log(reply)
+		replies.value=[reply,...replies.value]
+		return
+
+	};
+	ws.onclose = () => console.log("Disconnected from server");
 	</script>
 	<style>
 		.link-card-grid {

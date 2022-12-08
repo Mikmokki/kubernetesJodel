@@ -9,18 +9,14 @@
                 {{reply.token}}
             </p>
             <p>
-                {{reply.replytext}} {{reply.score}}
+                {{reply.replytext}}
             </p>
     </li>
     </template>
     <script setup lang="ts">
-    defineProps<{reply:{
-    id: number,
-    messageid:number,
-    replytext: string,
-    timestamp: string,
-    token: string,
-    }}>()
+    import type { Reply } from './Message.vue';
+
+    defineProps<{reply:Reply}>()
     
     </script>
     <style>

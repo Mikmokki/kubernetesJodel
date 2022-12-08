@@ -7,5 +7,6 @@ const app = new Application();
 app.use(errorMiddleware);
 
 app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.listen({ port: 7777});
