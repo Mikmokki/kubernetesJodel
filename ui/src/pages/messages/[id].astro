@@ -6,6 +6,9 @@ const { id } = Astro.params;
 
 <Layout title="Jodel">
 	<main>
+		<p class="instructions">
+			Message {id}
+		</p>
 	<Message client:only messageid={Number(id)}>
 	</Message>
 </main>

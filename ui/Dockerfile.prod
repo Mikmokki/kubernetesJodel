@@ -1,15 +1,16 @@
-FROM node:19-alpine3.15 as build
+FROM node:19-alpine3.15
 
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
-COPY . .
 
+# COPY package.json /app/package.json
+# COPY package-lock.json /app/package-lock.json
+# COPY tsconfig.json /app/tsconfig.json
+COPY . .
 # install node dependencies
 RUN echo "npm install in progress..." && npm ci
-RUN mkdir dist
-CMD ["run", "build" ]
 
-FROM rtsp/lighttpd
-COPY --from=build /app/dist /var/www/html
+EXPOSE 7778
 
+CMD [ "astro", "dev" ]

@@ -57,9 +57,3 @@ services:
     command: -connectRetries=60 -baselineOnMigrate=true migrate
     env_file:
       - project.env
-  rabbitmq_:
-      image: rabbitmq:3-management
-      container_name: rabbitmq_
-      ports:
-          - 5672:5672
-          - 15672:15672

@@ -1,6 +1,6 @@
 import { Pool } from "../deps.js";
 
-const CONCURRENT_CONNECTIONS = 2;
+const CONCURRENT_CONNECTIONS = 10;
 const PGPASS = Deno.env.get("PGPASS").trim();
 const PGPASS_PARTS = PGPASS.split(":");
 const hostname = PGPASS_PARTS[0];

@@ -17,11 +17,4 @@ spec:
           image: ui:latest
           imagePullPolicy: Never
           ports:
-              - containerPort: 80
-          env:
-            - name: PGPASS
-              valueFrom:
-                secretKeyRef:
-                  name: cluster-app
-                  key: pgpass
-                  optional: false # stating that the secret "cluster-app" must exist
+              - containerPort: 7778

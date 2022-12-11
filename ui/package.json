@@ -10,16 +10,14 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+
   "dependencies": {
     "@astrojs/node": "^3.1.0",
     "@astrojs/vue": "^1.2.1",
-    "amqplib": "^0.10.3",
-    "amqplib-as-promised": "^4.1.0",
     "astro": "^1.6.12",
     "uuid": "^9.0.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@types/amqplib": "^0.10.0"
   }
 }
